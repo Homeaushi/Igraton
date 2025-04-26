@@ -21,7 +21,7 @@ class CatchTheErrorGame:
         self.error_window = None
 
         # Пути к ресурсам
-        self.resources_dir = r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес"
+        self.resources_dir = r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images"
         self.bg_path = os.path.join(self.resources_dir, "Виндоус ХР.jpg")
         self.cursor_normal_path = os.path.join(self.resources_dir, "Default_hand.png")
         self.cursor_clicked_path = os.path.join(self.resources_dir, "Click_hand.png")

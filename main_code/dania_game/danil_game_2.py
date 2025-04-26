@@ -57,7 +57,7 @@ def load_gif_frames(gif_path, size):
     return frames
 
 # Укажите путь к вашей GIF-картинке персонажа
-player_frames = load_gif_frames(r"/Resources/данич имагес/animation_person.gif", (player_size, player_size))
+player_frames = load_gif_frames(r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\animation_person.gif", (player_size, player_size))
 current_player_frame = 0
 
 # Переменные для врагов
@@ -69,11 +69,11 @@ spawn_interval = 60  # Каждые 60 кадров появляется нов�
 
 # Массив с путями к PNG-изображениям врагов
 enemy_images_paths = [
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag1.PNG",  # Убедитесь, что эти файлы существуют
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag2.PNG",
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag3.PNG",
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag4.PNG",
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag5.PNG",
+    r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag1.PNG",  # Убедитесь, что эти файлы существуют
+    r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag2.PNG",
+    r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag3.PNG",
+    r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag4.PNG",
+    r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag5.PNG",
 ]
 
 # Функция для загрузки изображений врагов
