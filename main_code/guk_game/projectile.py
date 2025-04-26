@@ -1,5 +1,5 @@
 import pygame
-from screen_size import ScreenSize
+from main_code.config import ScreenSize
 
 
 class Projectile:

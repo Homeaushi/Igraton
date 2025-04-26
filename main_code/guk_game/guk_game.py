@@ -1,9 +1,9 @@
 import pygame
 import sys
-from color import Color
+from main_code.config import Color,ScreenSize
 from main_code.guk_game.enemy import Enemy
 from main_code.guk_game.player import Player
-from screen_size import ScreenSize
+
 
 
 class GukGame:

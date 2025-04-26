@@ -2,12 +2,13 @@ import pygame
 from player import Player
 from level_design import Level
 from camera import Camera
+from main_code.config import ScreenSize
 
 class Level4:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.screen_width, self.screen_height = self.screen.get_size()
+        self.screen = pygame.display.set_mode((ScreenSize.WIDTH.value, ScreenSize.HEIGHT.value))
+        self.screen_width, self.screen_height = (ScreenSize.WIDTH.value, ScreenSize.HEIGHT.value)
         pygame.display.set_caption("Уровень 4: Полный экран")
         self.clock = pygame.time.Clock()
         self.reset_game()
