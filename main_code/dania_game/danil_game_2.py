@@ -57,7 +57,7 @@ def load_gif_frames(gif_path, size):
     return frames
 
 # Укажите путь к вашей GIF-картинке персонажа
-player_frames = load_gif_frames(r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\animation_person.gif", (player_size, player_size))
+player_frames = load_gif_frames(r"/Resources/данич имагес/animation_person.gif", (player_size, player_size))
 current_player_frame = 0
 
 # Переменные для врагов
