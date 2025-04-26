@@ -1,42 +1,45 @@
 import pygame
 import sys
-from fighter import Fighter
 from color import Color
-from screen_size import Screen_size
+from main_code.guk_game.enemy import Enemy
+from main_code.guk_game.player import Player
+from screen_size import ScreenSize
 
 
-class Game:
+class GukGame:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((Screen_size.WIDTH.value, Screen_size.HEIGHT.value))
+        self.screen = pygame.display.set_mode((ScreenSize.WIDTH.value, ScreenSize.HEIGHT.value))
         pygame.display.set_caption("Лучший файтинг")
         self.clock = pygame.time.Clock()
         self.running = True
 
         # Загрузка ресурсов
-        self.background = self.load_background()
-        self.player1, self.player2 = self.create_players()
+        self.background = self._load_background()
+        self.player1, self.player2 = self._create_players()
 
         # Настройки игры
         self.FPS = 60
-        self.DAMAGE_PER_HIT = 1
+        self.DAMAGE_PER_HIT = 0.4
 
-    def load_background(self):
-        """Загрузка фонового изображения"""
+        # Сообщение о повреждении
+        self.show_damage_message = False
+        self.message_timer = 0
+        self.message_duration = 2000  # 2 секунды
+        self.font = pygame.font.Font(None, 60 )
+
+    def _load_background(self):
         try:
-            bg = pygame.image.load(r"/Resources/guk_Images\City1.png").convert()
-            return pygame.transform.scale(bg, (Screen_size.WIDTH.value, Screen_size.HEIGHT.value))
-        except pygame.error as e:
-            print(f"Не удалось загрузить фон: {e}. Используется чёрный фон")
-            bg = pygame.Surface((Screen_size.WIDTH.value, Screen_size.HEIGHT.value))
+            bg = pygame.image.load(r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\guk_Images\City1.png").convert()
+            return pygame.transform.scale(bg, (ScreenSize.WIDTH.value, ScreenSize.HEIGHT.value))
+        except:
+            bg = pygame.Surface((ScreenSize.WIDTH.value, ScreenSize.HEIGHT.value))
             bg.fill(Color.BLACK.value)
             return bg
 
-    def create_players(self):
-        """Создание игроков"""
-        player1 = Fighter(
-            x=100,
-            y=250,
+    def _create_players(self):
+        player1 = Player(
+            x=100, y=250,
             color=Color.BLUE.value,
             controls={
                 "left": pygame.K_a,
@@ -44,90 +47,89 @@ class Game:
                 "attack_up": pygame.K_w,
                 "attack_down": pygame.K_s
             },
-            image_path=r"/Resources/guk_Images\Персонаж.PNG"
+            image_path=r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\guk_Images\Персонаж.PNG"
         )
 
-        player2 = Fighter(
-            x=1200,
-            y=250,
+        player2 = Enemy(
+            x=1200, y=250,
             color=Color.RED.value,
-            controls={
-                "left": pygame.K_LEFT,
-                "right": pygame.K_RIGHT,
-                "attack_up": pygame.K_UP,
-                "attack_down": pygame.K_DOWN
-            },
-            image_path=r"/Resources/guk_Images\Враг.png"
+            image_path=r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\guk_Images\Враг.png"
         )
-
         return player1, player2
 
-    def handle_events(self):
-        """Обработка событий"""
+    def _handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == self.player1.controls["attack_up"]:
                     self.player1.attack_up()
-                if event.key == self.player2.controls["attack_up"]:
-                    self.player2.attack_up()
                 if event.key == self.player1.controls["attack_down"]:
                     self.player1.attack_down()
-                if event.key == self.player2.controls["attack_down"]:
-                    self.player2.attack_down()
 
-    def update(self):
-        """Обновление состояния игры"""
+    def _update(self):
         keys = pygame.key.get_pressed()
         self.player1.move(keys, self.player2)
-        self.player2.move(keys, self.player1)
-
         self.player1.update()
-        self.player2.update()
+        self.player2.update(self.player1)
+
 
     def check_collisions(self):
-        """Проверка столкновений атак"""
+        # Проверка обычных атак
         p1_attack = self.player1.draw(self.screen)
         p2_attack = self.player2.draw(self.screen)
 
         if p1_attack and p1_attack.colliderect(self.player2.rect):
             self.player2.health -= self.DAMAGE_PER_HIT
 
-        if p2_attack and p2_attack.colliderect(self.player1.rect):
-            self.player1.health -= self.DAMAGE_PER_HIT
+        # Проверка снарядов игрока 2 (врага)
+        for proj in self.player2.projectiles[:]:
+            # Столкновение с игроком 1
+            if proj.rect.colliderect(self.player1.rect):
+                self.player2.projectiles.remove(proj)
+                self.show_damage_message = True
+                self.message_timer = pygame.time.get_ticks()
+            # Столкновение с атакой игрока 1
+            elif p1_attack and proj.rect.colliderect(p1_attack):
+                self.player2.projectiles.remove(proj)
 
     def check_game_over(self):
-        """Проверка условий окончания игры"""
         if self.player1.health <= 0 or self.player2.health <= 0:
             font = pygame.font.Font(None, 74)
             text = font.render("ИГРА ОКОНЧЕНА", True, Color.WHITE.value)
-            self.screen.blit(text, (Screen_size.WIDTH.value // 2 - 180, Screen_size.HEIGHT.value // 2 - 30))
+            self.screen.blit(text, (ScreenSize.WIDTH.value // 2 - 180, ScreenSize.HEIGHT.value // 2 - 30))
             pygame.display.flip()
             pygame.time.wait(3000)
             self.running = False
 
     def render(self):
-        """Отрисовка игры"""
         self.screen.blit(self.background, (0, 0))
         self.player1.draw(self.screen)
         self.player2.draw(self.screen)
+
+        # Проверяем, нужно ли показывать сообщение о повреждении
+        current_time = pygame.time.get_ticks()
+        if self.show_damage_message and current_time - self.message_timer < self.message_duration:
+            text = self.font.render("Вам нанесён моральный урон", True, (255, 0, 0))  # Красный цвет
+            text_rect = text.get_rect(center=(ScreenSize.WIDTH.value // 2, 50))
+            self.screen.blit(text, text_rect)
+        else:
+            self.show_damage_message = False
+
         pygame.display.flip()
 
     def run(self):
-        """Основной игровой цикл"""
         while self.running:
-            self.handle_events()
-            self.update()
+            self._handle_events()
+            self._update()
             self.check_collisions()
             self.check_game_over()
             self.render()
             self.clock.tick(self.FPS)
-
         pygame.quit()
         sys.exit()
 
 
 if __name__ == "__main__":
-    game = Game()
+    game = GukGame()
     game.run()

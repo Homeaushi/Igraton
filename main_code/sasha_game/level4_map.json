@@ -1,0 +1,31 @@
+{
+  "platforms": [
+    { "x": 0, "y": 550, "width": 200, "height": 20 },
+    { "x": 250, "y": 500, "width": 100, "height": 20 },
+    { "x": 400, "y": 450, "width": 80, "height": 20 },
+    { "x": 550, "y": 400, "width": 60, "height": 20 },
+    { "x": 700, "y": 350, "width": 40, "height": 20 },
+    { "x": 800, "y": 300, "width": 40, "height": 20 },
+    { "x": 900, "y": 350, "width": 40, "height": 20 },
+    { "x": 1000, "y": 400, "width": 80, "height": 20, "type": "moving", "range": 100, "speed": 1, "axis": "x" },
+    { "x": 1150, "y": 350, "width": 80, "height": 20, "type": "moving", "range": 80, "speed": 1.5, "axis": "y" },
+    { "x": 1300, "y": 300, "width": 200, "height": 20 },
+    { "x": 1600, "y": 300, "width": 150, "height": 20 },
+    { "x": 1800, "y": 250, "width": 100, "height": 20 },
+    { "x": 1950, "y": 220, "width": 80, "height": 20 },
+    { "x": 2100, "y": 200, "width": 80, "height": 20, "type": "moving", "range": 120, "speed": 2, "axis": "x" },
+    { "x": 2300, "y": 250, "width": 100, "height": 20 },
+    { "x": 2450, "y": 300, "width": 150, "height": 20 }
+  ],
+  "buffs": [
+    { "x": 300, "y": 450, "type": "cache" },
+    { "x": 600, "y": 350, "type": "double_jump" },
+    { "x": 1100, "y": 250, "type": "super_speed", "required": "double_jump" }
+  ],
+  "hazards": [],
+  "level_meta": {
+    "background": "industrial",
+    "time_estimate": 120,
+    "difficulty": "medium"
+  }
+}

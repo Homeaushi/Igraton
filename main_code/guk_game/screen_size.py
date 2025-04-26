@@ -1,5 +1,5 @@
 import enum
 
-class Screen_size(enum.Enum):
+class ScreenSize(enum.Enum):
     WIDTH = 1550
     HEIGHT = 900
