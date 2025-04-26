@@ -5,7 +5,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
 
         # Загружаем оригинальную картинку
-        original_image = pygame.image.load(r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\guk_Images\Персонаж.PNG").convert_alpha()
+        original_image = pygame.image.load(r"C:\Users\danil\PycharmProjects\Igraton\Resources\guk_Images\Персонаж.PNG").convert_alpha()
         
         # Размер персонажа (изменяй под себя)
         size = (50, 50)

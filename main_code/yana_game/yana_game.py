@@ -23,7 +23,7 @@ player_speed = 5
 platform_speed = 3
 
 # Загрузка изображений
-player_img = pygame.image.load(r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\guk_Images\Персонаж.PNG")  # Замените на свой файл изображения игрока
+player_img = pygame.image.load(r"C:\Users\danil\PycharmProjects\Igraton\Resources\guk_Images\Персонаж.PNG")  # Замените на свой файл изображения игрока
 
 # Масштабирование изображений
 player_img = pygame.transform.scale(player_img, (70, 70))

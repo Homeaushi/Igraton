@@ -12,7 +12,7 @@ class Projectile:
         # Загрузка изображения снаряда
         try:
             self.image = pygame.image.load(
-                r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\guk_Images\Слюня.png"
+                r"C:\Users\danil\PycharmProjects\Igraton\Resources\guk_Images\Слюня.png"
             ).convert_alpha()
             self.image = pygame.transform.scale(self.image,(200, 200))
 
