@@ -1,6 +1,5 @@
 import pygame
-from color import Color
-from screen_size import ScreenSize
+from main_code.config import Color,ScreenSize
 
 
 class CharacterBase:
