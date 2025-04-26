@@ -3,6 +3,8 @@ import random
 import sys
 from PIL import Image, ImageSequence  # Для работы с GIF
 
+from main_code.config import ScreenSize, Color
+
 # Инициализация Pygame
 pygame.init()
 
@@ -11,20 +13,10 @@ SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 600
 
 # Включаем полноэкранный режим
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-SCREEN_WIDTH, SCREEN_HEIGHT = screen.get_size()  # Получаем размеры экрана
+screen = pygame.display.set_mode((ScreenSize.WIDTH.value, ScreenSize.HEIGHT.value))
+SCREEN_WIDTH, SCREEN_HEIGHT = (ScreenSize.WIDTH.value, ScreenSize.HEIGHT.value)  # Получаем размеры экрана
 
 pygame.display.set_caption("Pixel Tanks")
-
-# Цвета
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-BLUE = (0, 0, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-SKY_BLUE = (135, 206, 235)  # Цвет неба
-BROWN = (139, 69, 19)       # Цвет земли
-STONE_GRAY = (128, 128, 128)  # Цвет камней
 
 # Частота обновления экрана
 clock = pygame.time.Clock()
@@ -57,7 +49,7 @@ def load_gif_frames(gif_path, size):
     return frames
 
 # Укажите путь к вашей GIF-картинке персонажа
-player_frames = load_gif_frames(r"/Resources/данич имагес/animation_person.gif", (player_size, player_size))
+player_frames = load_gif_frames(r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\animation_person.gif", (player_size, player_size))
 current_player_frame = 0
 
 # Переменные для врагов
@@ -69,11 +61,11 @@ spawn_interval = 60  # Каждые 60 кадров появляется нов�
 
 # Массив с путями к PNG-изображениям врагов
 enemy_images_paths = [
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag1.PNG",  # Убедитесь, что эти файлы существуют
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag2.PNG",
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag3.PNG",
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag4.PNG",
-    r"C:\Users\danil\PycharmProjects\Igraton\Resources\данич имагес\vrag5.PNG",
+    r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag1.PNG",  # Убедитесь, что эти файлы существуют
+    r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag2.PNG",
+    r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag3.PNG",
+    r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag4.PNG",
+    r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag5.PNG",
 ]
 
 # Функция для загрузки изображений врагов
@@ -99,16 +91,16 @@ font = pygame.font.Font(None, int(SCREEN_HEIGHT * 0.05))  # Размер шри�
 # Функция для отрисовки фона
 def draw_background():
     # Небо
-    pygame.draw.rect(screen, SKY_BLUE, (0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.draw.rect(screen, Color.SKY_BLUE.value, (0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # Земля по бокам дорожек
-    pygame.draw.rect(screen, GREEN, (0, 0, SCREEN_WIDTH // 4 - player_size // 2, SCREEN_HEIGHT))
-    pygame.draw.rect(screen, GREEN, (SCREEN_WIDTH * 3 // 4 + player_size // 2, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.draw.rect(screen, Color.GREEN.value, (0, 0, SCREEN_WIDTH // 4 - player_size // 2, SCREEN_HEIGHT))
+    pygame.draw.rect(screen, Color.GREEN.value, (SCREEN_WIDTH * 3 // 4 + player_size // 2, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # Дорожки
     for i in range(3):  # Три дорожки
         lane_x = lanes[i]
-        pygame.draw.rect(screen, WHITE, (lane_x, 0, player_size, SCREEN_HEIGHT))
+        pygame.draw.rect(screen, Color.WHITE.value, (lane_x, 0, player_size, SCREEN_HEIGHT))
 
     # Камни на дорожках
     for i in range(3):
@@ -117,7 +109,7 @@ def draw_background():
             x = lane_x + random.randint(-player_size // 2, player_size // 2)
             y = random.randint(0, SCREEN_HEIGHT)
             size = random.randint(5, 15)
-            pygame.draw.circle(screen, RED, (x, y), size)
+            pygame.draw.circle(screen, Color.RED.value, (x, y), size)
 
 # Функция для отрисовки игрока
 def draw_player(x, y):
@@ -133,7 +125,7 @@ def draw_enemies(enemies):
 # Функция для отрисовки снарядов
 def draw_bullets(bullets):
     for bullet in bullets:
-        pygame.draw.rect(screen, GREEN, bullet)
+        pygame.draw.rect(screen, Color.GREEN.value, bullet)
 
 # Функция для проверки столкновений
 def check_collision(rect, targets):
@@ -145,7 +137,7 @@ def check_collision(rect, targets):
 # Функция для отрисовки кнопок
 def draw_button(text, x, y, width, height, color):
     pygame.draw.rect(screen, color, (x, y, width, height))
-    text_surface = font.render(text, True, BLACK)
+    text_surface = font.render(text, True, Color.BLACK.value)
     text_rect = text_surface.get_rect(center=(x + width // 2, y + height // 2))
     screen.blit(text_surface, text_rect)
 
@@ -156,9 +148,9 @@ score = 0
 while running:
     if current_state == MENU:
         # Меню
-        screen.fill(SKY_BLUE)
-        draw_button("Начать игру", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50, 200, 50, WHITE)
-        draw_button("Выйти", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 20, 200, 50, WHITE)
+        screen.fill(Color.SKY_BLUE.value)
+        draw_button("Начать игру", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50, 200, 50, Color.WHITE.value)
+        draw_button("Выйти", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 20, 200, 50, Color.WHITE.value)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -247,24 +239,24 @@ while running:
         draw_bullets(bullets)
 
         # Подсчет очков
-        score_text = font.render(f"Score: {score}", True, BLACK)
-        kill_count_text = font.render(f"Истребленные вирусы: {kill_count}", True, BLACK)
+        score_text = font.render(f"Score: {score}", True, Color.BLACK.value)
+        kill_count_text = font.render(f"Истребленные вирусы: {kill_count}", True, Color.BLACK.value)
         screen.blit(score_text, (10, 40))
         screen.blit(kill_count_text,(10,10))
 
     elif current_state == GAME_OVER:
         # Экран конца игры
-        screen.fill(SKY_BLUE)
-        game_over_text = font.render("Game Over", True, RED)
-        score_text = font.render(f"Score: {score}", True, BLACK)
-        kill_count_text = font.render(f"Истребленные вирусы: {kill_count}", True, BLACK)
+        screen.fill(Color.SKY_BLUE.value)
+        game_over_text = font.render("Game Over", True, Color.RED.value)
+        score_text = font.render(f"Score: {score}", True, Color.BLACK.value)
+        kill_count_text = font.render(f"Истребленные вирусы: {kill_count}", True, Color.BLACK.value)
 
         screen.blit(game_over_text, (SCREEN_WIDTH // 2 - game_over_text.get_width() // 2, SCREEN_HEIGHT // 2 - 100))
         screen.blit(score_text, (SCREEN_WIDTH // 2 - score_text.get_width() // 2, SCREEN_HEIGHT // 2 - 50))
         screen.blit(kill_count_text, (SCREEN_WIDTH // 2 - kill_count_text.get_width() // 2, SCREEN_HEIGHT // 2))
 
-        draw_button("Рестарт", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 70, 200, 50, WHITE)
-        draw_button("Выйти", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 140, 200, 50, WHITE)
+        draw_button("Рестарт", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 70, 200, 50, Color.WHITE.value)
+        draw_button("Выйти", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 140, 200, 50, Color.WHITE.value)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
