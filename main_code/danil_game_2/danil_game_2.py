@@ -102,11 +102,11 @@ class Game:
 
     def load_enemy_images(self):
         paths = [
-            r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag1.PNG",
-            r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag2.PNG",
-            r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag3.PNG",
-            r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag4.PNG",
-            r"C:\Users\danil\PycharmProjects\Igraton\Resources\dania_images\vrag5.PNG",
+            r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag1.PNG",
+            r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag2.PNG",
+            r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag3.PNG",
+            r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag4.PNG",
+            r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\dania_images\vrag5.PNG",
         ]
         images = []
         for path in paths:
