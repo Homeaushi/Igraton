@@ -89,15 +89,4 @@ class GameMenu:
         return self.game_started
 
 
-# # Пример использования
-# if __name__ == "__main__":
-#     menu = GameMenu()
-#     game_started = menu.run()
-#
-#     if game_started:
-#         print("Игра запускается...")
-#         # Здесь можно запустить основной игровой цикл
-#     else:
-#         print("Выход из игры")
-#         pygame.quit()
-#         sys.exit()
+

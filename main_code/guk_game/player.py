@@ -1,5 +1,5 @@
 import pygame
-from character import CharacterBase
+from main_code.guk_game.character import CharacterBase
 
 
 class Player(CharacterBase):

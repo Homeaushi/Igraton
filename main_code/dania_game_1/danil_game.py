@@ -97,6 +97,8 @@ class CatchTheErrorGame:
             self.end_game()
 
     def end_game(self):
+        if self.score > 15:
+            self.exit_game()
         self.game_active = False
         if hasattr(self.error_window, 'window') and self.error_window.window.winfo_exists():
             self.error_window.window.destroy()
@@ -107,5 +109,10 @@ class CatchTheErrorGame:
         )
 
     def exit_game(self):
-        if messagebox.askyesno("Выход", "Вы уверены, что хотите выйти?"):
-            self.master.destroy()
+        self.master.destroy()
+        return True
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    game = CatchTheErrorGame(root)
+    root.mainloop()

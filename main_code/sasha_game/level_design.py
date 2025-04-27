@@ -1,8 +1,8 @@
 import pygame
 import json
-from buffs import Buff
-from hazards import Hazard  # Для шипов
-from platforms import Platform, MovingPlatform  # Для платформ
+from main_code.sasha_game.buffs import Buff
+from main_code.sasha_game.hazards import Hazard  # Для шипов
+from main_code.sasha_game.platforms import Platform, MovingPlatform  # Для платформ
 
 class Level:
     def __init__(self, map_file):

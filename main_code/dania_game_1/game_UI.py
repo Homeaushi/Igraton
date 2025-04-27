@@ -20,7 +20,7 @@ class GameUI:
             self.frame,
             text="Очки: 0 | Время: 30",
             font=("Arial", 24),
-            fg="white",
+            fg="black",
             bg='SystemButtonFace',
             highlightthickness=0
         )

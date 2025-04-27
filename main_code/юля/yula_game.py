@@ -4,9 +4,12 @@ import random
 import math
 import os
 
+from main_code import config
+from main_code.config import ScreenSize
+
 # Инициализация PyGame
 pygame.init()
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = ScreenSize.WIDTH.value,ScreenSize.HEIGHT.value
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Vegetable Defense")
 clock = pygame.time.Clock()
@@ -59,20 +62,20 @@ class AssetLoader:
 
         # Загрузка овощей
         self.vegetables = {
-            'carrot': self.load_png("морковь.png", (60, 60)),
-            'tomato': self.load_png("помидор.png", (60, 60)),
-            'cabbage': self.load_png("капуста.png", (60, 60)),
-            'potato': self.load_png("картоха.png", (60, 60)),
-            'onion': self.load_png("редиска.png", (60, 60))
+            'carrot': self.load_png("морковь.png", (100, 100)),
+            'tomato': self.load_png("помидор.png", (100, 100)),
+            'cabbage': self.load_png("капуста.png", (100, 100)),
+            'potato': self.load_png("картоха.png", (100, 100)),
+            'onion': self.load_png("редиска.png", (100, 100))
         }
 
         # Загрузка жуков
         self.bugs = [
-            self.load_png("жук1.PNG", (50, 50)),
-            self.load_png("жук2.PNG", (50, 50)),
-            self.load_png("жук3.PNG", (50, 50)),
-            self.load_png("жук4.PNG", (50, 50)),
-            self.load_png("жук5.PNG", (50, 50))
+            self.load_png("жук1.PNG", (120, 120)),
+            self.load_png("жук2.PNG", (120, 120)),
+            self.load_png("жук3.PNG", (120, 120)),
+            self.load_png("жук4.PNG", (120, 120)),
+            self.load_png("жук5.PNG", (120, 120))
         ]
 
 
@@ -97,13 +100,14 @@ class Vegetable:
 
 class Bug:
     def __init__(self, target):
+
         self.target = target
         self.image = random.choice(assets.bugs)
         self.rect = self.image.get_rect(
             center=(random.choice([-50, WIDTH + 50]),
                     random.choice([-50, HEIGHT + 50]))
         )
-        self.speed = 2.75  # Высокая скорость жуков
+        self.speed = 16.75  # Высокая скорость жуков
 
     def update(self):
         dx = self.target.rect.centerx - self.rect.centerx
@@ -117,14 +121,15 @@ class Bug:
         screen.blit(self.image, self.rect)
 
 
-class Game:
+class YulaGame:
     def __init__(self):
+        self.game_stop = False
         self.vegetables = [
-            Vegetable(150, 450, 'carrot'),
-            Vegetable(300, 450, 'tomato'),
-            Vegetable(450, 450, 'cabbage'),
-            Vegetable(600, 450, 'potato'),
-            Vegetable(750, 450, 'onion')
+            Vegetable(350, 710, 'carrot'),
+            Vegetable(500, 710, 'tomato'),
+            Vegetable(650, 710, 'cabbage'),
+            Vegetable(800, 710, 'potato'),
+            Vegetable(950, 710, 'onion')
         ]
         self.bugs = []
         self.running = True
@@ -184,11 +189,12 @@ class Game:
             "Теперь только ты можешь спасти мир!"
         ]
 
-        while True:
+        while not(self.game_stop):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
                     pygame.quit()
-                    sys.exit()
+                    self.game_stop = True
+                    return True
 
             screen.fill((0, 0, 0))
             for _ in range(20):
@@ -199,7 +205,7 @@ class Game:
 
             y_pos = HEIGHT // 4
             for text in texts:
-                render = self.font.render(text, True, (200, 0, 0))
+                render = self.font.render(text, True, config.Color.WHITE.value)
                 screen.blit(render, (WIDTH // 2 - render.get_width() // 2, y_pos))
                 y_pos += 40
 
@@ -236,6 +242,7 @@ class Game:
                     if all(veg.health <= 0 for veg in self.vegetables):
                         self.running = False
                         self.game_over()
+                        return self.game_stop
             screen.blit(assets.background, (0, 0))
             pygame.draw.rect(screen, COLORS['earth'], (0, HEIGHT - 100, WIDTH, 100))
 
@@ -248,7 +255,3 @@ class Game:
             self.draw_interface()
             pygame.display.flip()
             clock.tick(60)
-
-
-if __name__ == "__main__":
-    Game().run()

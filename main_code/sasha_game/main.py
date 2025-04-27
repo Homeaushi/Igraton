@@ -1,8 +1,9 @@
 import pygame
-from player import Player
-from level_design import Level
-from camera import Camera
+from main_code.sasha_game.level_design import Level
+from main_code.sasha_game.camera import Camera
 from main_code.config import ScreenSize
+from main_code.sasha_game.player import Player
+
 
 class Level4:
     def __init__(self):
@@ -15,7 +16,7 @@ class Level4:
 
     def reset_game(self):
         """Полностью сбрасывает состояние игры"""
-        self.level = Level("level4_map.json")
+        self.level = Level(r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\main_code\sasha_game\level4_map.json")
         self.player = Player(100, 200)
         self.camera = Camera(
             self.screen_width, 
@@ -78,7 +79,8 @@ class Level4:
 
             # Показываем сообщение о завершении уровня
             if self.level_complete:
-                self.show_level_complete()
+                if self.show_level_complete():
+                    return True
 
             if self.game_over:
                 self.show_game_over(self.death_timer)
@@ -109,16 +111,7 @@ class Level4:
         self.screen.blit(countdown_text, countdown_rect)
 
     def show_level_complete(self):
-        font = pygame.font.SysFont(None, 80)
-        text = font.render("УРОВЕНЬ ПРОЙДЕН!", True, (0, 255, 0))
-        text_rect = text.get_rect(center=(self.screen_width//2, self.screen_height//2 - 50))
-        self.screen.blit(text, text_rect)
-
-        enter_text = pygame.font.SysFont(None, 50).render(
-            "Нажмите Enter для выхода", True, (255, 255, 255)
-        )
-        enter_rect = enter_text.get_rect(center=(self.screen_width//2, self.screen_height//2 + 20))
-        self.screen.blit(enter_text, enter_rect)
+        return True
 
 if __name__ == "__main__":
     game = Level4()

@@ -1,7 +1,7 @@
 import pygame
 import random
-from character import CharacterBase
-from projectile import Projectile
+from main_code.guk_game.character import CharacterBase
+from main_code.guk_game.projectile import Projectile
 
 
 class Enemy(CharacterBase):
