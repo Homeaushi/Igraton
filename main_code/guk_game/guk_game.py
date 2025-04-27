@@ -30,7 +30,7 @@ class GukGame:
 
     def _load_background(self):
         try:
-            bg = pygame.image.load(r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\guk_Images\City1.png").convert()
+            bg = pygame.image.load(r"C:\Users\danil\PycharmProjects\Igraton\Resources\guk_Images\City1.png").convert()
             return pygame.transform.scale(bg, (ScreenSize.WIDTH.value, ScreenSize.HEIGHT.value))
         except:
             bg = pygame.Surface((ScreenSize.WIDTH.value, ScreenSize.HEIGHT.value))
@@ -47,13 +47,13 @@ class GukGame:
                 "attack_up": pygame.K_w,
                 "attack_down": pygame.K_s
             },
-            image_path=r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\guk_Images\Персонаж.PNG"
+            image_path=r"C:\Users\danil\PycharmProjects\Igraton\Resources\guk_Images\Персонаж.PNG"
         )
 
         player2 = Enemy(
             x=1200, y=250,
             color=Color.RED.value,
-            image_path=r"C:\Users\alex_\РАБ. СТОЛ\python\Igraton\Resources\guk_Images\Враг.png"
+            image_path=r"C:\Users\danil\PycharmProjects\Igraton\Resources\guk_Images\Враг.png"
         )
         return player1, player2
 
